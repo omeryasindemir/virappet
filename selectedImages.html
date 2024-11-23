@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>virappet - Tüm Seçenekler</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="https://pngimg.com/uploads/carpet/carpet_PNG19.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="image-container"></div>
+    
+
+
+
+    <script>
+        window.onload = function() {
+            const container = document.getElementById('image-container');
+            const urlParams = new URLSearchParams(window.location.search);
+            const selectedImages = urlParams.get('images').split(',');
+
+            selectedImages.forEach(function(i) {
+                let img = document.createElement('img');
+                let card = document.createElement("div")
+                let iNumber = document.createElement("div")
+                let iNumberBox = document.createElement("div")
+                iNumber.style.display = "none"
+                iNumberBox.innerText = i
+                iNumber.classList.add("iNumber")
+                iNumberBox.classList.add("iNumberBox")
+                card.classList.add("card")
+                card.style.border = "1px solid transparent"
+                img.classList.add("click")
+                img.src = `images/${i}.jpg`; // Resimlerin bulunduğu klasör ve dosya adı
+
+                img.style.height = '100%'; // İsteğe bağlı, resmin boyutunu sınırlayabilirsiniz
+                img.style.width = '100%'; // İsteğe bağlı, resmin boyutunu sınırlayabilirsiniz
+                img.style.borderRadius = "8px"
+
+                
+
+
+                img.addEventListener('click', function() {
+                    if (img.classList.contains('selected')) {
+                        img.classList.remove('selected');
+                         iNumber.style.display = "none"
+                         card.style.border = "1px solid transparent"
+                        const index = selectedImages.indexOf(i);
+                        if (index !== -1) {
+                            selectedImages.splice(index, 1);
+                        }
+                    } else {
+                        img.classList.add('selected');
+                        selectedImages.push(i);
+
+                        iNumber.style.display = "flex"
+                        card.style.border = "1px solid white"
+                    }
+                });
+
+
+
+
+                
+
+                container.appendChild(card);
+                card.appendChild(iNumber)
+                card.appendChild(img)
+                iNumber.appendChild(iNumberBox)
+            }
+
+
+
+        )}
+    </script>
+</body>
+
+</html>
